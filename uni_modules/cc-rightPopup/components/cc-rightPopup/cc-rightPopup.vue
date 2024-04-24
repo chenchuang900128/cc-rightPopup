@@ -12,10 +12,11 @@
 				</view>
 
 				<view class="input_box">
-					<input class="input_boxInput" v-model="paramDict.minPrice" placeholder="最低价"></input>
+					<input class="input_boxInput" v-model="paramDict.minPrice" placeholder="最低价" />
 					<text class="input_boxText">-</text>
-					<input class="input_boxInput" v-model="paramDict.maxPrice" placeholder="最高价"></input>
+					<input class="input_boxInput" v-model="paramDict.maxPrice" placeholder="最高价" />
 				</view>
+
 				<view v-for="(item, index) in classList" :key="index" class="allClass">
 					<view class="classtext">{{item.name}}</view>
 					<view class="class_box">
@@ -95,8 +96,8 @@
 			return {
 
 				paramDict: {
-					minPrice: '',
-					maxPrice: ''
+					minPrice: '0',
+					maxPrice: '0'
 				}
 			}
 		},
@@ -130,40 +131,40 @@
 			},
 
 			setClass(item, subItem, index, indexs) { //选择条件
-				
+
 				// 单选 清除所有选中
 				if (this.isSingleSel) {
-				
+
 					let data = this.classList;
 					let count = 0;
 					data.forEach(e => {
-				
+
 						if (count == index) {
 							e.child.forEach(ele => {
 								ele.current = false;
 							});
 						}
-				
+
 						count++;
 					});
-				
-				
+
+
 				}
-				
+
 				subItem.current = !subItem.current;
 				console.log("选择1 = " + JSON.stringify(subItem));
-				
+
 				item.child[indexs] = subItem;
 				let data = item;
 				let newdata = 'classList[' + index + ']';
 				this.setData({
 					[newdata]: data
 				});
-				
+
 				// 适配小程序
-				this.$emit("change",this.classList);
-				
-				
+				this.$emit("change", this.classList);
+
+
 			},
 
 			onreset() { //重置筛选条件
@@ -176,9 +177,9 @@
 
 				this.classList = data;
 				this.paramDict = {};
-				
+
 				// 适配小程序
-				this.$emit("change",this.classList);
+				this.$emit("change", this.classList);
 
 			},
 
